@@ -207,7 +207,7 @@ function janrainCaptureWidgetOnLoad() {
     janrain.events.onModalClose.addHandler(implFuncs.loadEditProfile);
 
     //  Register custom client-side validators
-    janrain.capture.ui.registerFunction('passwordValidation', implFuncs.passwordValidation);
+    // janrain.capture.ui.registerFunction('passwordValidation', implFuncs.passwordValidation);
 
     /*--
         SHOW EVENTS:
