@@ -25,7 +25,11 @@ exports.initLocals = function(req, res, next) {
 
 	locals.navLinks = [
 		{ label: 'Home',		key: 'home',		href: '/' },
-		{ label: 'Blog',		key: 'blog',		href: '/blog' }
+		{ label: 'World News',		key: 'world-news',		href: '/section/world-news' },
+		{ label: 'US News',		key: 'us-news',		href: '/section/us-news' },
+		{ label: 'Sports',		key: 'sports',		href: '/section/sports' },
+		{ label: 'Science + Technology',		key: 'sci-tech',		href: '/section/sci-tech' },
+		{ label: 'Lifestyle + Entertainment',		key: 'lifestyle-entertainment',		href: '/section/lifestyle-entertainment' }
 	];
 
 	locals.user = req.user;
