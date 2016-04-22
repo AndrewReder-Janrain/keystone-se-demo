@@ -28,7 +28,7 @@ exports.initLocals = function(req, res, next) {
 		{ label: 'World News',		key: 'world-news',		href: '/section/world-news' },
 		{ label: 'US News',		key: 'us-news',		href: '/section/us-news' },
 		{ label: 'Sports',		key: 'sports',		href: '/section/sports' },
-		{ label: 'Science + Technology',		key: 'sci-tech',		href: '/section/sci-tech' },
+		{ label: 'Science + Technology',		key: 'science-technology',		href: '/section/science-technology' },
 		{ label: 'Lifestyle + Entertainment',		key: 'lifestyle-entertainment',		href: '/section/lifestyle-entertainment' }
 	];
 
