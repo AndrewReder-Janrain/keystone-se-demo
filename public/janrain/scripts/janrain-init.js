@@ -110,23 +110,24 @@ For more information about these settings, see the following documents:
 
 
     // --- Federate ------------------------------------------------------------
-    //janrain.settings.capture.federate = true;
-    //janrain.settings.capture.federateServer = '';
-    //janrain.settings.capture.federateXdReceiver = '';
-    //janrain.settings.capture.federateLogoutUri = '';
-    //janrain.settings.capture.federateLogoutCallback = function() {};
+    janrain.settings.capture.federate = true;
+    janrain.settings.capture.federateServer = 'https://veritasnewscorp.us.janrainsso.com';
+    janrain.settings.capture.federateXdReceiver = 'http://localhost:3000/janrain/xdcomm.html';
+    janrain.settings.capture.federateLogoutUri = 'http://localhost:3000/janrain/logout.html';;
+    janrain.settings.capture.federateLogoutCallback = function() {};
     //janrain.settings.capture.federateEnableSafari = false;
 
 
 
     // --- Backplane -----------------------------------------------------------
+    janrain.settings.capture.backplaneBlock = 20;
+    janrain.settings.capture.backplaneReplayOnPageLoad = true;
+    janrain.settings.capture.backplaneVersion = 1.2;
     //janrain.settings.capture.backplane = true;
     //janrain.settings.capture.backplaneBusName = '';
     //janrain.settings.capture.backplaneVersion = 2;
     //janrain.settings.capture.backplaneBlock = 20;
-
-
-
+    janrain.settings.capture.backplaneBusName = 'veritasnews-bus';
 
     // --- BEGIN WIDGET INJECTION CODE -----------------------------------------
     /********* WARNING: *******************************************************\
@@ -266,7 +267,6 @@ function janrainExampleImplementationFunctions() {
         document.getElementById("captureSignInLink").style.display  = '';
         document.getElementById("captureSignOutLink").style.display = 'none';
         document.getElementById("captureProfileLink").style.display = 'none';
-        document.getElementById("editProfile").style.display = 'none';
     }
     function getParameterByName(name) {
         name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
