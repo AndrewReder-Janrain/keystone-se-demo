@@ -1,9 +1,4 @@
 {{# each primaryTeaserCategories }}
-    {{this}}
-    {{data.categories}}
-    {{#ifeq this 'world-news'}}
-      <h3>{{data.category.name}}</h3>
-      {{>mainTeaser}}
-    {{else}}
-    {{/ifeq}}
+  <h3>{{this.name}}</h3>
+  {{>mainTeaser}}
 {{/each}}

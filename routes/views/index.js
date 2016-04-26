@@ -11,11 +11,7 @@ exports = module.exports = function(req, res) {
   locals.filters = {
     category: req.params.category
   };
-  locals.primaryTeaserCategories = ['world-news','sports','us-news'];
-  locals.primaryTeaserPosts = [];
-  locals.secondaryTeaserCategories = [];
-  locals.smallTeaserCaterories = ['lifestyle-entertainment','science-technology'];
-  locals.smallTeaserPosts = [];
+
   locals.data = {
     posts: [],
     categories: []
@@ -31,7 +27,7 @@ exports = module.exports = function(req, res) {
       }
 
       locals.data.categories = results;
-      console.log(locals.data.categories);
+      console.log(results);
       // Load the counts for each category
       async.each(locals.data.categories, function(category, next) {
 
@@ -61,30 +57,56 @@ exports = module.exports = function(req, res) {
     }
 
   });
+  // ['world-news','sports','us-news'];
+  // locals.smallTeaserCaterories = ['lifestyle-entertainment','science-technology'];
+  locals.primaryTeaserCategories = [
+    { _id: "571a3e14d2c92f189fbf3aa6",
+      key: 'world-news',
+      name: 'World News',
+      post: {}},
+    { _id: "571a3e20d2c92f189fbf3aa7",
+      key: 'us-news',
+      name: 'US News',
+      post: {}},
+    { _id: "571a3e27d2c92f189fbf3aa8",
+      key: 'sports',
+      name: 'Sports',
+      post: {}},
+  ];
 
+  locals.primaryTeaserPosts = [];
+  locals.smallTeaserCaterories = [
+    { _id: "571a3e4dd2c92f189fbf3aaa",
+      key: 'lifestyle-entertainment',
+      name: 'Lifestyle + Entertainment',
+      post: {}},
+    { _id: "571a3e38d2c92f189fbf3aa9",
+      key: 'science-technology',
+      name: 'Science + Technology',
+      post: {}}
+  ];
+  locals.smallTeaserPosts = [];
   // Load the posts
   view.on('init', function(next) {
-
-    var q = keystone.list('Post').paginate({
-        page: req.query.page || 1,
-        perPage: 10,
-        maxPages: 10,
-        filters: {
-          'state': 'published'
-        }
-      })
-      .sort('-publishedDate')
-      .populate('author categories');
-
-    if (locals.data.category) {
-      q.where('categories').in([locals.data.category]);
-    }
-
-    q.exec(function(err, results) {
-      locals.data.posts = results;
+    async.each(locals.primaryTeaserCategories, function(category, next) {
+      keystone.list('Post').model.findOne().where('categories').in([category._id]).exec(function(err, result) {
+        category.post = result;
+        next(err);
+      });
+    }, function(err) {
       next(err);
     });
+  });
 
+  view.on('init', function(next) {
+    async.each(locals.smallTeaserCategories, function(category, next) {
+      keystone.list('Post').model.findOne().where('categories').in([category._id]).exec(function(err, result) {
+        category.post = result;
+        next(err);
+      });
+    }, function(err) {
+      next(err);
+    });
   });
   // Load the posts
   // view.on('init', function(next) {
