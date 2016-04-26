@@ -75,7 +75,7 @@ exports = module.exports = function(req, res) {
   ];
 
   locals.primaryTeaserPosts = [];
-  locals.smallTeaserCaterories = [
+  locals.smallTeaserCategories = [
     { _id: "571a3e4dd2c92f189fbf3aaa",
       key: 'lifestyle-entertainment',
       name: 'Lifestyle + Entertainment',
@@ -86,6 +86,20 @@ exports = module.exports = function(req, res) {
       post: {}}
   ];
   locals.smallTeaserPosts = [];
+  locals.articleTeaserPosts = [
+    {
+      title: "HOMO NALEDI: NEW SPECIES OF HUMAN ANCESTOR DISCOVERED IN SOUTH AFRICA",
+      slug: "homo-naledi-new-species-of-human-ancestor-discovered-in-south-africa",
+      categoryName: "Science + Technology",
+      image: { url: "http://res.cloudinary.com/keystone-demo/image/upload/v1461338094/aenhsx87mxhzrviljpyy.jpg" }
+    },
+    {
+      title: "FLOODING TAKES TOLL IN JAPAN",
+      slug: "flooding-takes-toll-in-japan",
+      categoryName: "World News",
+      image: { url: "http://res.cloudinary.com/keystone-demo/image/upload/v1461338873/h6bpwmzjw46ikqypyopa.jpg"}
+    }
+  ];
   // Load the posts
   view.on('init', function(next) {
     async.each(locals.primaryTeaserCategories, function(category, next) {
