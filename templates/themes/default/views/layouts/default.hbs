@@ -136,6 +136,14 @@
 			//- you can upgrade to 2.1.4 (also bundled) for better performance.
 		--}}
 		<script src="/js/jquery/jquery-1.11.3.min.js"></script>
+
+		<script type="text/javascript" src="http://cdn.arktan.com/ark-woj-min.js"></script>
+		<script type="text/javascript">
+		jQuery(document).ready(function(){
+		jQuery("#article-comments").arktanArticleComments();
+		});
+		</script>
+
 		{{!--
 			//- Customise which Bootstrap javascript files are served by including
 			//- them specifically here, instead of bootstrap-3.3.5.min.js
