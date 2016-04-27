@@ -217,14 +217,12 @@ function janrainCaptureWidgetOnLoad() {
                                                                             --*/
     // janrainUtilityFunctions().showEvents();
     janrain.events.onCaptureBackplaneReady.addHandler(function(result) {
-      if(Arktan){
-        // Arktan.SocialApps.install();
-            if(jQuery("div.article-comments").length > 0){
-                jQuery("div.article-comments").arktanArticleComments();
-            }
+        Arktan.SocialApps.install();
+        if(jQuery(".article-comments").length > 0){
+            jQuery(".article-comments").arktanArticleComments();
+        }
         if(jQuery(".article-comments-counter").length > 0){
-                jQuery(".article-comments-counter").arktanSocialCounter();
-            }
+            jQuery(".article-comments-counter").arktanSocialCounter();
         }
     });
 
