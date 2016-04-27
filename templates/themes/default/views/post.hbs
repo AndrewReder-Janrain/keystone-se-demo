@@ -1,21 +1,18 @@
 <div class="container">
 	<div class="row">
+		<p><a href="/">&larr; back to home</a></p>
 		{{#ifeq data.post.slug "us-open-2015-serena-beats-venus-in-battle-of-williams-sisters"}}
 			<div class="col-sm-8 col-md-8">
-				<article>
-					<p><a href="/">&larr; back to home</a></p>
-					<hr>
-					<header>
-						<h1>{{data.post.title}}</h1>
-						<h5>
-							{{{categoryList data.post.categories prefix="Posted in "}}}
-							{{#if author.name.first}}by {{author.name.first}}{{/if}}
-						</h5>
-					</header>
-					<div class="post">
-						{{{data.post.content.extended}}}
+				<h2>{{data.post.title}}</h2>
+				<div class="thumbnail">
+					<img src={{data.post.image.url}} style="min-width:100%" class="img-responsive" alt={{this.post.title}}>
+					<div class="caption">
+						<h5>Posted in <a href="/section/{{category.key}}">{{category.name}}</a></h5>
+						<div class="post">
+							{{{data.post.content.extended}}}
+						</div>
 					</div>
-				</article>
+				</div>
 				{{>commenting}}
 			</div>
 			<div class="col-sm-4 col-md-4">
@@ -23,20 +20,16 @@
 			</div>
 		{{else}}
 			<div class="col-md-12 col-sm-12">
-				<article>
-					<p><a href="/">&larr; back to home</a></p>
-					<hr>
-					<header>
-						<h1>{{data.post.title}}</h1>
-						<h5>
-							{{{categoryList data.post.categories prefix="Posted in "}}}
-							{{#if author.name.first}}by {{author.name.first}}{{/if}}
-						</h5>
-					</header>
-					<div class="post">
-						{{{data.post.content.extended}}}
+				<h2>{{data.post.title}}</h2>
+				<div class="thumbnail">
+					<img src={{data.post.image.url}} style="min-width:100%" class="img-responsive" alt={{this.post.title}}>
+					<div class="caption">
+						<h5>Posted in <a href="/section/{{category.key}}">{{category.name}}</a></h5>
+						<div class="post">
+							{{{data.post.content.extended}}}
+						</div>
 					</div>
-				</article>
+				</div>
 				{{>commenting}}
 			</div>
 		{{/ifeq}}

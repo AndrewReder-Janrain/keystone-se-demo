@@ -6,8 +6,7 @@
     <div id="arktan-stream"></div>
   </div>
 </div>
-<script type="text/javascript" src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="http://cdn.arktan.com/ark-woj-min.js"></script>
+<script src="/js/jquery/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
 var ArktanSocialStreamsConfig = {
 "source":{
@@ -29,7 +28,7 @@ var ArktanSocialStreamsConfig = {
 "streamID": "http://www.janrain.com/solutions/id_Veritas_News_Serena_Williams"
 }
 ]};
-$(document).ready(function(){
+jQuery(document).ready(function(){
 Arktan.SocialApps.install(ArktanSocialStreamsConfig);
 $('.echo-item-content').addClass('well');
 });
