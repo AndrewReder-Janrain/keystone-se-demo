@@ -3,19 +3,19 @@
 </div>
 <div class="container">
 	<div class="row">
-		<div class="col-sm-8 col-md-9">
-			<div class="blog">
-				{{# each data.posts.results}}
-				<div data-ks-editable="{{#if ../user}}{{adminEditableUrl ../../user _id}}{{/if}}" class="post">
-					<h2><a href="/article/{{slug}}">{{{title}}}</a></h2>
-					<p class="lead text-muted">{{{categoryList categories prefix="Posted in "}}}
-							{{#if author.name.first}}by {{author.name.first}}{{/if}}
-					</p>
-					<p>{{{content.extended}}}</p>
-					<p class="read-more"><a href="/article/{{slug}}">Read more...</a></p>
+		<div class="col-sm-8 col-md-8 col-md-offset-2 col-sm-offset-2">
+			{{# each data.posts.results}}
+			<h2><a href="/article/{{slug}}">{{{title}}}</a></h2>
+				<div class="thumbnail">
+					<img src={{image.url}} style="min-width:100%" class="img-responsive" alt={{title}}>
+					<div class="caption">
+						<div class="post">
+							{{{content.brief}}}
+							<p class="read-more"><a href="/article/{{slug}}">Read more...</a></p>
+						</div>
+					</div>
 				</div>
 				{{/each}}
-			</div>
 		</div>
 	</div>
 	{{>pagination}}
