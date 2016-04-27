@@ -1,21 +1,44 @@
 <div class="container">
 	<div class="row">
-		<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
-			<article>
-				<p><a href="/">&larr; back to home</a></p>
-				<hr>
-				<header>
-					<h1>{{data.post.title}}</h1>
-					<h5>
-						{{{categoryList data.post.categories prefix="Posted in "}}}
-						{{#if author.name.first}}by {{author.name.first}}{{/if}}
-					</h5>
-				</header>
-				<div class="post">
-					{{{data.post.content.extended}}}
-				</div>
-			</article>
-			{{>commenting}}
-		</div>
+		{{#ifeq data.post.slug "us-open-2015-serena-beats-venus-in-battle-of-williams-sisters"}}
+			<div class="col-sm-8 col-md-8">
+				<article>
+					<p><a href="/">&larr; back to home</a></p>
+					<hr>
+					<header>
+						<h1>{{data.post.title}}</h1>
+						<h5>
+							{{{categoryList data.post.categories prefix="Posted in "}}}
+							{{#if author.name.first}}by {{author.name.first}}{{/if}}
+						</h5>
+					</header>
+					<div class="post">
+						{{{data.post.content.extended}}}
+					</div>
+				</article>
+				{{>commenting}}
+			</div>
+			<div class="col-sm-4 col-md-4">
+				{{>tennisStream}}
+			</div>
+		{{else}}
+			<div class="col-md-12 col-sm-12">
+				<article>
+					<p><a href="/">&larr; back to home</a></p>
+					<hr>
+					<header>
+						<h1>{{data.post.title}}</h1>
+						<h5>
+							{{{categoryList data.post.categories prefix="Posted in "}}}
+							{{#if author.name.first}}by {{author.name.first}}{{/if}}
+						</h5>
+					</header>
+					<div class="post">
+						{{{data.post.content.extended}}}
+					</div>
+				</article>
+				{{>commenting}}
+			</div>
+		{{/ifeq}}
 	</div>
 </div>

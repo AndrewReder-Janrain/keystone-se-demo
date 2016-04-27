@@ -123,7 +123,7 @@ For more information about these settings, see the following documents:
     janrain.settings.capture.backplaneBlock = 20;
     janrain.settings.capture.backplaneReplayOnPageLoad = true;
     janrain.settings.capture.backplaneVersion = 1.2;
-    //janrain.settings.capture.backplane = true;
+    janrain.settings.capture.backplane = true;
     //janrain.settings.capture.backplaneBusName = '';
     //janrain.settings.capture.backplaneVersion = 2;
     //janrain.settings.capture.backplaneBlock = 20;
@@ -216,7 +216,34 @@ function janrainCaptureWidgetOnLoad() {
         include janrain-utils.js to run this function.
                                                                             --*/
     // janrainUtilityFunctions().showEvents();
+    janrain.events.onCaptureBackplaneReady.addHandler(function(result) {
+      if(Arktan){
+        // Arktan.SocialApps.install();
+            if(jQuery("div.article-comments").length > 0){
+                jQuery("div.article-comments").arktanArticleComments();
+            }
+        if(jQuery(".article-comments-counter").length > 0){
+                jQuery(".article-comments-counter").arktanSocialCounter();
+            }
+        }
+    });
 
+    //Initialize Engagement User
+    janrain.events.onCaptureLoginSuccess.addHandler(function(response) {
+        var uuid = eval("(" + localStorage["janrainCaptureProfileData"] + ")").uuid;
+        var entityType = "user";
+        var appkey = "dev.veritas";
+        Arktan.initializeEngagementUser(uuid, entityType, appkey);
+    });
+
+    //Initialize Engagement User
+    janrain.events.onCaptureRegistrationSuccess.addHandler(function(response) {
+        var uuid = eval("(" + localStorage["janrainCaptureProfileData"] + ")").uuid;
+        var entityType = "user";
+        var appkey = "dev.veritas";
+        Arktan.initializeEngagementUser(uuid, entityType, appkey);
+        //$.cookie('ArktanCaptureLoginProvider', response.authProvider);
+    });
     /*--
         SHOW FLOW VERSION:
         This event handler shows the flow version in the specified element.
