@@ -1,0 +1,616 @@
+<html>
+  <head></head>
+  <body>
+
+    <script>
+      (function() {
+    // Check for settings. If there are none, create them
+        if (typeof window.janrain !== 'object') window.janrain = {};
+        if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
+        if (typeof window.janrain.settings.capture !== 'object') window.janrain.settings.capture = {};
+
+        // Load Engage and Capture. 'login' is Engage, 'capture' is Capture.
+        // Changing these values without guidance can result in unexpected behavior.
+        janrain.settings.packages = ['login', 'capture'];
+
+
+
+        /*--- Application Settings -----------------------------------------------*\
+
+            When transitioning from a development to production, these are the
+            settings that need to be changed. Others may also need to be changed if
+            you have purchased optional products and features, such as Federate.
+            Those settings are located below.
+
+            janrain.settings.appUrl:
+                The URL of your Engage application.
+                Example: https://your-company.rpxnow.com
+
+            janrain.settings.capture.captureServer:
+                The URL of your Capture application.
+                Example: https://your-company.janraincapture.com
+
+            janrain.settings.capture.appId:
+                The the application ID of your Capture application.
+
+            janrain.settings.capture.clientId:
+                The client ID of the Capture application.
+
+            Example Dev Configuration:
+                janrain.settings.appUrl                = 'https://your-company-dev.rpxnow.com';
+                janrain.settings.capture.captureServer = 'https://your-company-dev.janraincapture.com';
+                janrain.settings.capture.appId         = <DEV CAPTURE APP ID>;
+                janrain.settings.capture.clientId      = <DEV CAPTURE CLIENT ID>;
+                var httpLoadUrl                        = "http://widget-cdn.rpxnow.com/load/your-company-dev";
+                var httpsLoadUrl                       = "https://rpxnow.com/load/your-company-dev";
+
+            Example Prod Configuration:
+                janrain.settings.appUrl                = 'https://login.yourcompany.com';
+                janrain.settings.capture.captureServer = 'https://your-company.janraincapture.com';
+                janrain.settings.capture.appId         = <PROD CAPTURE APP ID>;
+                janrain.settings.capture.clientId      = <PROD CAPTURE CLIENT ID>;
+                var httpLoadUrl                        = "http://widget-cdn.rpxnow.com/load/login.yourcompany.com";
+                var httpsLoadUrl                       = "https://rpxnow.com/load/login.yourcompany.com";
+
+        \*------------------------------------------------------------------------*/
+
+        janrain.settings.appUrl                = 'https://veritasnewscorp-demo.rpxnow.com';
+        janrain.settings.capture.captureServer = 'https://veritasnewscorp.us-eval.janraincapture.com';
+        janrain.settings.capture.appId         = 'wntnt6n5ejumrrdefdj59jz8g4';
+        janrain.settings.capture.clientId      = '234j7n8sy6atdwkcjfppn8qvse49srd6';
+
+        // These are the URLs for your Engage app's load.js file, which is necessary
+        // to load the Capture Widget.
+        var httpLoadUrl  = "http://widgets-cdn.rpxnow.com/load/veritasnewscorp-demo";
+        var httpsLoadUrl = "https://rpxnow.com/load/veritasnewscorp-demo";
+
+
+        // --- Engage Widget Settings ----------------------------------------------
+        janrain.settings.language = 'en-US';
+        if (document.location.protocol === 'https:') {
+            janrain.settings.tokenUrl = 'https://localhost:3000';
+        } else {
+            janrain.settings.tokenUrl = 'http://localhost:3000';
+        }
+        janrain.settings.tokenAction = 'event';
+        janrain.settings.showAttribution = false;
+        janrain.settings.borderColor = '#ffffff';
+        janrain.settings.fontFamily = 'Helvetica, Lucida Grande, Verdana, sans-serif';
+        janrain.settings.width = 300;
+        janrain.settings.actionText = ' ';
+
+
+
+        // --- Capture Widget Settings ---------------------------------------------
+        janrain.settings.capture.redirectUri = 'https://localhost:3000';
+        janrain.settings.capture.flowName = 'standard';
+        janrain.settings.capture.flowVersion = 'HEAD';
+        janrain.settings.capture.registerFlow = 'socialRegistration';
+        janrain.settings.capture.setProfileCookie = true;
+        janrain.settings.capture.keepProfileCookieAfterLogout = true;
+        janrain.settings.capture.modalCloseHtml = 'X';
+        janrain.settings.capture.noModalBorderInlineCss = true;
+        janrain.settings.capture.responseType = 'token';
+        janrain.settings.capture.returnExperienceUserData = ['displayName'];
+        janrain.settings.capture.stylesheets = ['/janrain/css/janrain.css'];
+        janrain.settings.capture.mobileStylesheets = ['/janrain/css/janrain-mobile.css'];
+
+
+
+        // --- Mobile WebView ------------------------------------------------------
+        //janrain.settings.capture.redirectFlow = true;
+        //janrain.settings.popup = false;
+        //janrain.settings.tokenAction = 'url';
+        //janrain.settings.capture.registerFlow = 'socialMobileRegistration'
+
+
+
+        // --- Federate ------------------------------------------------------------
+        // janrain.settings.capture.federate = true;
+        // janrain.settings.capture.federateServer = 'https://veritasnewscorp.us.janrainsso.com';
+        // janrain.settings.capture.federateXdReceiver = 'http://localhost:3000/janrain/xdcomm.html';
+        // janrain.settings.capture.federateLogoutUri = 'http://localhost:3000/janrain/logout.html';;
+        // janrain.settings.capture.federateLogoutCallback = function() {};
+        //janrain.settings.capture.federateEnableSafari = false;
+
+
+
+        // --- Backplane -----------------------------------------------------------
+        janrain.settings.capture.backplaneBlock = 20;
+        janrain.settings.capture.backplaneReplayOnPageLoad = true;
+        janrain.settings.capture.backplaneVersion = 1.2;
+        janrain.settings.capture.backplane = true;
+        janrain.settings.capture.backplaneBusName = 'veritasnews-bus';
+
+        // --- BEGIN WIDGET INJECTION CODE -----------------------------------------
+        /********* WARNING: *******************************************************\
+        |      DO NOT EDIT THIS SECTION                                            |
+        | This code injects the Capture Widget. Modifying this code can cause the  |
+        | Widget to load incorrectly or not at all.                                |
+        \**************************************************************************/
+
+        function isReady() {
+            janrain.ready = true;
+        }
+        if (document.addEventListener) {
+            document.addEventListener("DOMContentLoaded", isReady, false);
+        } else {
+            window.attachEvent('onload', isReady);
+        }
+
+        var injector = document.createElement('script');
+        injector.type = 'text/javascript';
+        injector.id = 'janrainAuthWidget';
+        if (document.location.protocol === 'https:') {
+            injector.src = httpsLoadUrl;
+        } else {
+            injector.src = httpLoadUrl;
+        }
+        var firstScript = document.getElementsByTagName('script')[0];
+        firstScript.parentNode.insertBefore(injector, firstScript);
+
+        // --- END WIDGET INJECTION CODE -------------------------------------------
+
+    })();
+
+
+
+    // This function is called by the Capture Widget when it has completred loading
+    // itself and all other dependencies. This function is required, and must call
+    // janrain.capture.ui.start() for the Widget to initialize correctly.
+    function janrainCaptureWidgetOnLoad() {
+        var implFuncs = janrainExampleImplementationFunctions(); // Located below.
+
+        /*==== CUSTOM ONLOAD CODE START ==========================================*\
+        ||  Any javascript that needs to be run before screens are rendered but   ||
+        ||  after the Widget is loaded should go between this comment and "CUSTOM ||
+        ||  ONLOAD CODE END" below.                                               ||
+        \*                                                                        */
+
+        /*--
+            SCREEN TO RENDER:
+            This setting defines which screen to render. We've set it to the result
+            of implFuncs.getParameterByName() so that if you pass in a parameter
+            in your URL called 'screenToRender' and provide a valid screen name,
+            that screen will be shown when the Widget loads.
+                                                                                --*/
+        janrain.settings.capture.screenToRender = implFuncs.getParameterByName('screenToRender');
+
+        /*--
+            EVENT HANDLING:
+
+            Event Documentation:
+            http://developers.janrain.com/reference/javascript-api/registration-js-api/events/
+        --*/
+        // janrain.events.onCaptureScreenShow.addHandler(implFuncs.enhanceReturnExperience);
+        // janrain.events.onCaptureSaveSuccess.addHandler(implFuncs.hideResendLink);
+
+        /*--
+            NAVIGATION EVENTS:
+            These event handlers are used for navigating the example implementation
+            that exists on our servers for testing/demo/sample purposes. It is not
+            required for your implementation, but can be modified to suit your
+            needs. These event handlers are provided as an example.
+        //                                                                         --*/
+        // janrain.events.onCaptureLoginSuccess.addHandler(implFuncs.setNavigationForLoggedInUser);
+        // janrain.events.onCaptureSessionFound.addHandler(implFuncs.setNavigationForLoggedInUser);
+        // janrain.events.onCaptureRegistrationSuccess.addHandler(implFuncs.setNavigationForLoggedInUser);
+        // janrain.events.onCaptureSessionEnded.addHandler(implFuncs.setNavigationForLoggedOutUser);
+        // janrain.events.onCaptureLoginFailed.addHandler(implFuncs.handleDeactivatedAccountLogin);
+        // janrain.events.onCaptureAccountDeactivateSuccess.addHandler(implFuncs.handleAccountDeactivation);
+        // janrain.events.onModalClose.addHandler(implFuncs.loadEditProfile);
+
+        //  Register custom client-side validators
+        // janrain.capture.ui.registerFunction('passwordValidation', implFuncs.passwordValidation);
+
+        /*--
+            SHOW EVENTS:
+            Uncomment this line to show events in your browser's console. You must
+            include janrain-utils.js to run this function.
+                                                                                --*/
+        // janrainUtilityFunctions().showEvents();
+        janrain.events.onCaptureBackplaneReady.addHandler(function(result) {
+            Arktan.SocialApps.install();
+            if(jQuery(".article-comments").length > 0){
+                jQuery(".article-comments").arktanArticleComments();
+            }
+            if(jQuery(".article-comments-counter").length > 0){
+                jQuery(".article-comments-counter").arktanSocialCounter();
+            }
+        });
+
+        //Initialize Engagement User
+        // janrain.events.onCaptureLoginSuccess.addHandler(function(response) {
+        //     var uuid = eval("(" + localStorage["janrainCaptureProfileData"] + ")").uuid;
+        //     var entityType = "user";
+        //     var appkey = "dev.veritas";
+        //     Arktan.initializeEngagementUser(uuid, entityType, appkey);
+        // });
+
+        // //Initialize Engagement User
+        // janrain.events.onCaptureRegistrationSuccess.addHandler(function(response) {
+        //     var uuid = eval("(" + localStorage["janrainCaptureProfileData"] + ")").uuid;
+        //     var entityType = "user";
+        //     var appkey = "dev.veritas";
+        //     Arktan.initializeEngagementUser(uuid, entityType, appkey);
+        //     //$.cookie('ArktanCaptureLoginProvider', response.authProvider);
+        // });
+
+        janrain.capture.ui.start();
+    }
+
+
+    // Reference implementation navigation.
+    function janrainExampleImplementationFunctions() {
+        function setNavigationForLoggedInUser(result) {
+            janrain.capture.ui.modal.close();
+            document.getElementById("captureSignInLink").style.display  = 'none';
+            document.getElementById("captureSignOutLink").style.display = '';
+            document.getElementById("captureProfileLink").style.display = '';
+        }
+            function loadEditProfile(result) {
+            janrain.capture.ui.renderScreen('editProfile');
+            document.getElementById("captureSignInLink").style.display  = 'none';
+            document.getElementById("captureSignOutLink").style.display = '';
+            document.getElementById("captureProfileLink").style.display = '';
+        }
+        function setNavigationForLoggedOutUser(result) {
+            document.getElementById("captureSignInLink").style.display  = '';
+            document.getElementById("captureSignOutLink").style.display = 'none';
+            document.getElementById("captureProfileLink").style.display = 'none';
+        }
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+        function enhanceReturnExperience(result) {
+            if (result.screen == "returnTraditional") {
+                var span = document.getElementById('traditionalWelcomeName');
+                var name = janrain.capture.ui.getReturnExperienceData("displayName");
+                if (span && name) {
+                    span.innerHTML = "Welcome back, " + name + "!";
+                }
+            }
+        }
+            function hideResendLink(result) {
+            // Hide the 'Resend confirmation email' link if it's been clicked
+            // from the edit profile page. Link will reappear if the user
+            // refreshes their profile page.
+            if(result.controlName == "resendVerificationEmail" &&
+               result.screen == "editProfile") {
+                document.getElementById("capture_editProfile_resendLink").style.display = 'none';
+            }
+        }
+        function hideResendLink(result) {
+            // Hide the 'Resend confirmation email' link if it's been clicked
+            // from the edit profile page. Link will reappear if the user
+            // refreshes their profile page.
+            if(result.controlName == "resendVerificationEmail" &&
+               result.screen == "editProfile") {
+                document.getElementById("capture_editProfile_resendLink").style.display = 'none';
+            }
+        }
+        function handleDeactivatedAccountLogin(result) {
+            if (result.statusMessage == "accountDeactivated") {
+                janrain.capture.ui.renderScreen('accountDeactivated');
+            }
+        }
+        function handleAccountDeactivation(result) {
+            if(result.status == "success") {
+                document.getElementById("editProfile").style.display = 'none';
+                janrain.capture.ui.modal.close();
+                janrain.capture.ui.endCaptureSession();
+                janrain.capture.ui.renderScreen('accountDeactivated');
+            }
+        }
+        function passwordValidation(name, value) {
+            return /{{ CUSTOM_PASSWORD_REGEX }}/.test(value);
+        }
+        function showFlowVersion(elementId, result) {
+            var elem = document.getElementById(elementId);
+            elem.innerText = "Flow version: " + result.version;
+        }
+
+        return {
+            setNavigationForLoggedInUser: setNavigationForLoggedInUser,
+            setNavigationForLoggedOutUser: setNavigationForLoggedOutUser,
+            getParameterByName: getParameterByName,
+            enhanceReturnExperience: enhanceReturnExperience,
+            hideResendLink: hideResendLink,
+            handleDeactivatedAccountLogin: handleDeactivatedAccountLogin,
+            handleAccountDeactivation: handleAccountDeactivation,
+            passwordValidation: passwordValidation,
+            showFlowVersion: showFlowVersion
+
+        };
+    }
+    </script>
+    <script src="/janrain/scripts/janrain-utils.js"></script>
+
+    <div style="display:none;" id="signIn">
+        <div class="capture_header">
+            <h1>Sign Up / Sign In</h1>
+        </div>
+        <div class="capture_signin">
+            <h2>With your existing account from...</h2>
+            {* loginWidget *} <br />
+        </div>
+        <div class="capture_backgroundColor">
+            <div class="capture_signin">
+                <h2>With a traditional account...</h2>
+                {* #signInForm *}
+                    {* signInEmailAddress *}
+                    {* currentPassword *}
+                    <div class="capture_form_item">
+                        <a href="#" data-capturescreen="forgotPassword">Forgot your password?</a>
+                    </div>
+                    <div class="capture_rightText">
+                        <button class="capture_secondary capture_btn capture_primary" type="submit"><span class="janrain-icon-16 janrain-icon-key"></span> Sign In</button>
+                        <a href="#" id="capture_signIn_createAccountButton" data-capturescreen="traditionalRegistration" class="capture_secondary capture_createAccountButton capture_btn capture_primary">Create Account</a>
+                        <div class="serviceMarks">
+                            {* poweredByJanrain *}
+                            <div id="adfdcb81-3fcc-4e89-807b-a54a89fab74d">
+                                <script type="text/javascript" src="//privacy-policy.truste.com/privacy-seal/Janrain,-Inc-/asc?rid=adfdcb81-3fcc-4e89-807b-a54a89fab74d"></script>
+                                <a href="//privacy.truste.com/privacy-seal/Janrain,-Inc-/validation?rid=1b233149-fc3b-4e69-957a-ca7677ee4787" title="TRUSTe Privacy, Trusted Cloud, European Safe Harbor certification" target="_blank"><img style="border: none" src="//privacy-policy.truste.com/privacy-seal/Janrain,-Inc-/seal?rid=7bc0f34d-9cf2-427d-af9e-15e2fc354825" alt="TRUSTe European Safe Harbor certification"/></a>
+                            </div>
+                        </div>
+                    </div>
+                {* /signInForm *}
+            </div>
+        </div>
+    </div>
+    <div style="display:none;" id="emailNotVerified">
+      <div class="capture_header">
+          <h1>Email Not Verified</h1>
+      </div>
+      <h2>Your email has not been verified.</h2>
+      <p>You must verify your email address before signing in.</p>
+
+      {* #resendVerificationForm *}
+          {* signInEmailAddress *}
+          <div class="capture_footer">
+              <input value="Submit" type="submit" class="capture_btn capture_primary">
+          </div>
+      {* /resendVerificationForm *}
+    </div>
+    <div style="display:none;" id="returnSocial">
+        <div class="capture_header">
+            <h1>Sign In</h1>
+        </div>
+        <div class="capture_signin">
+            <h2>Welcome back, {* welcomeName *}!</h2>
+            {* loginWidget *}
+            <div class="capture_centerText switchLink"><a href="#" data-cancelcapturereturnexperience="true">Use another account</a></div>
+        </div>
+    </div>
+    <div style="display:none;" id="returnTraditional">
+        <div class="capture_header">
+            <h1>Sign In</h1>
+        </div>
+        <h2 class="capture_centerText"><span id="traditionalWelcomeName">Welcome back!</span></h2>
+        <div class="capture_backgroundColor">
+            {* #signInForm *}
+                {* signInEmailAddress *}
+                {* currentPassword *}
+                <div class="capture_form_item capture_rightText">
+                    <button class="capture_secondary capture_btn capture_primary" type="submit"><span class="janrain-icon-16 janrain-icon-key"></span> Sign In</button>
+                </div>
+            {* /signInForm *}
+            <div class="capture_centerText switchLink"><a href="#" data-cancelcapturereturnexperience="true">Use another account</a></div>
+        </div>
+    </div>
+    <div style="display:none;" id="accountDeactivated">
+        <div class="capture_header">
+            <h1>Deactivated Account </h1>
+        </div>
+        <div class="content_wrapper">
+            <p>Your account has been deactivated.</p>
+        </div>
+    </div>
+    <div style="display:none;" id="emailVerificationRequired">
+        <div class="capture_header">
+            <h1>Email Verification Required</h1>
+        </div>
+        <p>You must verify your email address before signing in. Check your email for your verification email, or enter your email address in the form below to resend the email.</p>
+
+        {* #resendVerificationForm *}
+            {* signInEmailAddress *}
+            <div class="capture_footer">
+                <input value="Submit" type="submit" class="capture_btn capture_primary">
+            </div>
+        {* /resendVerificationForm *}
+    </div>
+    <div style="display:none;" id="socialRegistration">
+        <div class="capture_header">
+            <h1>Almost Done!</h1>
+        </div>
+        <h2>Please confirm the information below before signing in.</h2>
+        {* #socialRegistrationForm *}
+            {* firstName *}
+            {* lastName *}
+            {* emailAddress *}
+            {* displayName *}
+            {* birthdate *}
+            {* gender *}
+            {* addressPostalCode *}
+            {* optInNews1 *}
+            {* optInNews2 *}
+            {* acceptTerms *}
+            <div class="capture_footer">
+                <div class="capture_left">
+                    {* backButton *}
+                </div>
+                <div class="capture_right">
+                    <input value="Create Account" type="submit" class="capture_btn capture_primary">
+                </div>
+            </div>
+        {* /socialRegistrationForm *}
+    </div>
+    <div style="display:none;" id="traditionalRegistration">
+        <div class="capture_header">
+            <h1>Almost Done!</h1>
+        </div>
+        <p>Please confirm the information below before signing in. Already have an account? <a id="capture_traditionalRegistration_navSignIn" href="#" data-capturescreen="signIn">Sign In.</a></p>
+        {* #registrationForm *}
+            {* firstName *}
+            {* lastName *}
+            {* emailAddress *}
+            {* displayName *}
+            {* newPassword *}
+            {* newPasswordConfirm *}
+            {* birthdate *}
+            {* gender *}
+            {* addressPostalCode *}
+            {* optInNews1 *}
+            {* optInNews2 *}
+            {* acceptTerms *}
+            <div class="capture_footer">
+                <div class="capture_left">
+                    {* backButton *}
+                </div>
+                <div class="capture_right">
+                    <input value="Create Account" type="submit" class="capture_btn capture_primary">
+                </div>
+            </div>
+        {* /registrationForm *}
+    </div>
+    <div style="display:none;" id="emailVerificationNotification">
+        <div class="capture_header">
+            <h1>Thank you for registering!</h1>
+        </div>
+        <p>We have sent a confirmation email to {* emailAddressData *}. Please check your email and click on the link to activate your account.</p>
+        <div class="capture_footer">
+            <a href="#" onclick="janrain.capture.ui.modal.close()" class="capture_btn capture_primary">Close</a>
+        </div>
+    </div>
+    <div style="display:none;" id="mergeAccounts">
+        {* mergeAccounts {"custom": true} *}
+        <div id="capture_mergeAccounts_mergeAccounts_mergeOptionsContainer" class="capture_mergeAccounts_mergeOptionsContainer">
+            <div class="capture_header">
+                <div class="capture_icon_col">
+                    {| rendered_current_photo |}
+                </div>
+                <div class="capture_displayName_col">
+                    {| current_displayName |}<br />
+                    {| current_emailAddress |}
+                </div>
+                <span class="capture_mergeProvider janrain-provider-icon-24 janrain-provider-icon-{| current_provider_lowerCase |}"></span>
+            </div>
+            <div class="capture_dashed">
+                <div class="capture_mergeCol capture_centerText capture_left">
+                    <p class="capture_bigText">{| foundExistingAccountText |} <b>{| current_emailAddress |}</b>.</p>
+                    <div class="capture_hover">
+                        <div class="capture_popup_container">
+                            <span class="capture_popup-arrow"></span>{| moreInfoHoverText |}<br />
+                            {| existing_displayName |} - {| existing_provider |} : {| existing_siteName |} {| existing_createdDate |}
+                        </div>
+                        {| moreInfoText |}
+                    </div>
+                </div>
+                <div class="capture_mergeCol capture_mergeExisting_col capture_right">
+                    <div class="capture_shadow capture_backgroundColor capture_border">
+                        {| rendered_existing_provider_photo |}
+                        <div class="capture_displayName_col">
+                            {| existing_displayName |}<br />
+                            {| existing_provider_emailAddress |}
+                        </div>
+                        <span class="capture_mergeProvider janrain-provider-icon-16 janrain-provider-icon-{| existing_provider_lowerCase |} "></span>
+                        <div class="capture_centerText capture_smallText">Created {| existing_createdDate |} at {| existing_siteName |}</div>
+                    </div>
+                </div>
+            </div>
+            <div id="capture_mergeAccounts_form_collection_mergeAccounts_mergeRadio" class="capture_form_collection_merge_radioButtonCollection capture_form_collection capture_elementCollection capture_form_collection_mergeAccounts_mergeRadio" data-capturefield="undefined">
+                <div id="capture_mergeAccounts_form_item_mergeAccounts_mergeRadio_1_0" class="capture_form_item capture_form_item_mergeAccounts_mergeRadio capture_form_item_mergeAccounts_mergeRadio_1_0 capture_toggled" data-capturefield="undefined">
+                    <label for="capture_mergeAccounts_mergeAccounts_mergeRadio_1_0">
+                        <input id="capture_mergeAccounts_mergeAccounts_mergeRadio_1_0" data-capturefield="undefined" data-capturecollection="true" value="1" type="radio" class="capture_mergeAccounts_mergeRadio_1_0 capture_input_radio" checked="checked" name="mergeAccounts_mergeRadio">
+                            {| connectLegacyRadioText |}
+                    </label>
+                </div>
+                <div id="capture_mergeAccounts_form_item_mergeAccounts_mergeRadio_2_1" class="capture_form_item capture_form_item_mergeAccounts_mergeRadio capture_form_item_mergeAccounts_mergeRadio_2_1" data-capturefield="undefined">
+                    <label for="capture_mergeAccounts_mergeAccounts_mergeRadio_2_1">
+                        <input id="capture_mergeAccounts_mergeAccounts_mergeRadio_2_1" data-capturefield="undefined" data-capturecollection="true" value="2" type="radio" class="capture_mergeAccounts_mergeRadio_2_1 capture_input_radio" name="mergeAccounts_mergeRadio">
+                            {| createRadioText |} {| current_provider |}
+                    </label>
+                </div>
+                <div class="capture_tip" style="display:none;">
+            </div>
+                <div class="capture_tip_validating" data-elementname="mergeAccounts_mergeRadio">Validating</div>
+                <div class="capture_tip_error" data-elementname="mergeAccounts_mergeRadio"></div>
+            </div>
+            <div class="capture_footer">
+                {| connect_button |}
+                {| create_button |}
+            </div>
+        </div>
+    </div>
+    <div style="display:none;" id="traditionalAuthenticateMerge">
+        <div class="capture_header">
+            <h1>Sign in to complete account merge</h1>
+        </div>
+        <div class="capture_signin">
+            {* #signInForm *}
+                {* signInEmailAddress *}
+                {* currentPassword *}
+                <div class="capture_footer">
+                    <div class="capture_left">
+                        {* backButton *}
+                    </div>
+                    <div class="capture_right">
+                        <button class="capture_secondary capture_btn capture_primary" type="submit"><span class="janrain-icon-16 janrain-icon-key"></span> Sign In</button>
+                    </div>
+                </div>
+             {* /signInForm *}
+        </div>
+    </div>
+    <div style="display:none;" id="forgotPassword">
+        <div class="capture_header">
+            <h1>Create a new password</h1>
+        </div>
+        <h2>We'll send you a link to create a new password.</h2>
+        {* #forgotPasswordForm *}
+            {* signInEmailAddress *}
+            <div class="capture_footer">
+                <div class="capture_left">
+                    {* backButton *}
+                </div>
+                <div class="capture_right">
+                    <input value="Send" type="submit" class="capture_btn capture_primary">
+                </div>
+            </div>
+        {* /forgotPasswordForm *}
+    </div>
+    <div style="display:none;" id="forgotPasswordSuccess">
+        <div class="capture_header">
+            <h1>Create a new password</h1>
+        </div>
+            <p>We've sent an email with instructions to create a new password. Your existing password has not been changed.</p>
+        <div class="capture_footer">
+            <a href="#" onclick="janrain.capture.ui.modal.close()" class="capture_btn capture_primary">Close</a>
+        </div>
+    </div>
+    <div id="arktan-social-trend-id_Veritas_News_Syria_Trend"></div>
+    <script src="/js/jquery/jquery-1.11.3.min.js"></script>
+    <script>
+      var Arktan = {};
+    </script>
+    <script type="text/javascript" src="http://cdn.arktan.com/ark-woj-min.js"></script>
+    <script>
+    var ArktanTrendsConfig = {
+      "trendId":'http://www.janrain.com/solutions/id_Veritas_News_Syria_Trend',
+      "targetDOM": $("#arktan-social-trend-id_Veritas_News_Syria_Trend"),
+      "counter": "totalCount",
+      "social": true,
+      "sortOrder": "rankAscending",
+      "hideTimeStamp":true,
+      "itemsPerPage":8,
+      "appkey":"dev.janrain",
+      "cloudDBUrl":"http://cloud62.arktan.com/arktan/api"
+    };
+    $(document).ready(function(){
+      Arktan.SocialTrends.init(ArktanTrendsConfig);
+    });
+    </script>
+  </body>
+</html>

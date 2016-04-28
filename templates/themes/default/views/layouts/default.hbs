@@ -14,6 +14,16 @@
 
 		{{!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
 		//- Safely remove this block if you are not targeting IE8 --}}
+		<script src="/js/jquery/jquery-1.11.3.min.js"></script>
+		<script>
+			var Arktan = {};
+			Arktan.settings = {
+				"enableCapture": true,
+				"infiniteUserSession": true
+			};
+		</script>
+		<script type="text/javascript" src="http://cdn.arktan.com/ark-woj-min.js"></script>
+
 		<!--[if lt IE 9]>
 			<script src="//cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.js"></script>
 			<script src="//cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
@@ -135,9 +145,7 @@
 			//- and the KeystoneJS Content Editor. If you are not targeting IE8,
 			//- you can upgrade to 2.1.4 (also bundled) for better performance.
 		--}}
-		<script src="/js/jquery/jquery-1.11.3.min.js"></script>
 
-		<script type="text/javascript" src="http://cdn.arktan.com/ark-woj-min.js"></script>
 		{{!--
 			//- Customise which Bootstrap javascript files are served by including
 			//- them specifically here, instead of bootstrap-3.3.5.min.js

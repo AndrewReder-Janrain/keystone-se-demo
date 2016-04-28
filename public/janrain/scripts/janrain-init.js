@@ -124,9 +124,6 @@ For more information about these settings, see the following documents:
     janrain.settings.capture.backplaneReplayOnPageLoad = true;
     janrain.settings.capture.backplaneVersion = 1.2;
     janrain.settings.capture.backplane = true;
-    //janrain.settings.capture.backplaneBusName = '';
-    //janrain.settings.capture.backplaneVersion = 2;
-    //janrain.settings.capture.backplaneBlock = 20;
     janrain.settings.capture.backplaneBusName = 'veritasnews-bus';
 
     // --- BEGIN WIDGET INJECTION CODE -----------------------------------------
@@ -242,6 +239,15 @@ function janrainCaptureWidgetOnLoad() {
         Arktan.initializeEngagementUser(uuid, entityType, appkey);
         //$.cookie('ArktanCaptureLoginProvider', response.authProvider);
     });
+
+    //Initialize Engagement User
+    // janrain.events.onCaptureSessionFound.addHandler(function(response) {
+    //     var uuid = eval("(" + localStorage["janrainCaptureProfileData"] + ")").uuid;
+    //     var entityType = "user";
+    //     var appkey = "dev.veritas";
+    //     Arktan.initializeEngagementUser(uuid, entityType, appkey);
+    //     //$.cookie('ArktanCaptureLoginProvider', response.authProvider);
+    // });
     /*--
         SHOW FLOW VERSION:
         This event handler shows the flow version in the specified element.
@@ -260,10 +266,10 @@ function janrainCaptureWidgetOnLoad() {
                                                                             --*/
 
     janrain.events.onCaptureRenderComplete.addHandler(function(result){
-                if (result.screen == "emailNotVerified") {
-                    janrain.capture.ui.endCaptureSession();
-                }
-            });
+        if (result.screen == "emailNotVerified") {
+            janrain.capture.ui.endCaptureSession();
+        }
+    });
 
     /*                                                                        *\
     || *** CUSTOM ONLOAD CODE END ***                                         ||
