@@ -40,6 +40,7 @@ exports = module.exports = function(app) {
 	app.get('/article/:post', routes.views.post);
 	app.get('/reset-password', routes.views.resetPassword);
 	app.get('/verify-email', routes.views.verifyEmail);
+	app.get('/edit-profile', routes.views.editProfile);
 	// app.get('/syria-trend', routes.views.syriaTrendIframe);
 	// app.get('/world-news', routes.views.worldNews);
 	// app.get('/us-news', routes.views.usNews);

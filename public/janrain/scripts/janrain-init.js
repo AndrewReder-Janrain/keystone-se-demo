@@ -223,6 +223,12 @@ function janrainCaptureWidgetOnLoad() {
         }
     });
 
+    janrain.events.onCaptureSessionFound.addHandler(function(response) {
+        var uuid = eval("(" + localStorage["janrainCaptureProfileData"] + ")").uuid;
+        var entityType = "user";
+        var appkey = "dev.veritas";
+        Arktan.initializeEngagementUser(uuid, entityType, appkey);
+    });
     //Initialize Engagement User
     janrain.events.onCaptureLoginSuccess.addHandler(function(response) {
         var uuid = eval("(" + localStorage["janrainCaptureProfileData"] + ")").uuid;
