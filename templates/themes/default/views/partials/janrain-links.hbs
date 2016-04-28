@@ -1,23 +1,5 @@
-<!--
-    ============================================================================
-        A NOTE ON NAVIGATION:
-        These links are not needed for integration into your site. These links
-        are only used for navigating the reference implementation that exists on
-        our servers for testing/demo/sample purposes. It is not required for
-        your implementation.
-
-        Here you can see an example of using janrain.capture.ui.renderScreen in
-        conjunction with HTML elements to simplify user navigation.
-    ============================================================================
-    -->
-    <li>
-    <a href="#" id="captureSignInLink" onclick="janrain.capture.ui.renderScreen('signIn')">Sign In / Sign Up</a>
-    </li>
-    <li>
-    <a href="#" id="captureProfileLink" style="display:none" onclick="janrain.capture.ui.renderScreen('editProfile')">Edit Profile</a>
-    </li>
-    <li>
-    <a href="#" id="captureSignOutLink" style="display:none" onclick="janrain.capture.ui.endCaptureSession()">Sign Out</a>
-    </li>
-    <script src="/janrain/scripts/janrain-init.js"></script>
-    <script src="/janrain/scripts/janrain-utils.js"></script>
+<a href="#" id="captureSignInLink" onclick="janrain.capture.ui.renderScreen('signIn')">Sign In / Sign Up</a>
+<a href="#" id="captureProfileLink" style="display:none" onclick="janrain.capture.ui.renderScreen('editProfile')">Edit Profile</a>
+<a href="#" id="captureSignOutLink" style="display:none" onclick="janrain.capture.ui.endCaptureSession()">Sign Out</a>
+<script src="/janrain/scripts/janrain-init.js"></script>
+<script src="/janrain/scripts/janrain-utils.js"></script>
