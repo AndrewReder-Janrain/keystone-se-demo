@@ -1,42 +1,36 @@
-<div class="row">
-  <h4>#tennis on Twitter</h4>
-</div>
-<div class="row">
-  <div class="arktan-socialstream thumbnail" style="max-height:1100px;overflow:scroll">
-    <div id="arktan-stream"></div>
-  </div>
-</div>
+<html>
+  <head></head>
+  <body>
+    <div class="arktan-socialstream">
+      <div id="arktan-stream"></div>
+    </div>
 <script src="/js/jquery/jquery-1.11.3.min.js"></script>
-<script>
-  var Arktan = {};
-  Arktan.settings = {
-    "enableCapture": true,
-    "infiniteUserSession": true
-  };
-</script>
 <script type="text/javascript" src="http://cdn.arktan.com/ark-woj-min.js"></script>
 <script type="text/javascript">
-var ArktanSocialStreamsConfig = {
-"source":{
-"name": "Arktan.com",
-"uri": "http://www.arktan.com"
-},
-"janrainAppName": "janrain-se-demo",
-"busName": "se-demo",
-"appkey": "dev.janrain",
-"identityUrl": "https://janrain-se-demo.rpxnow.com/openid/embed?flags=stay_in_window,no_immediate&token_url=http%3A%2F%2Fsandbox.arktan.com%2Farkjs%2Fwaiting.html&bp_channel=",
-"visualization":{
-"vizname":"default"
-},
-"apps": [
-{
-"type":"stream",
-"streamTarget":"arktan-stream",
-"id": "all",
-"streamID": "http://www.janrain.com/solutions/id_Veritas_News_Serena_Williams"
-}
+  var Arktan = {};
+  var ArktanSocialStreamsConfig = {
+  "source":{
+    "name": "Arktan.com",
+    "uri": "http://www.arktan.com"
+  },
+  "janrainAppName": "janrain-se-demo",
+  "busName": "se-demo",
+  "appkey": "dev.janrain",
+  "identityUrl": "https://janrain-se-demo.rpxnow.com/openid/embed?flags=stay_in_window,no_immediate&token_url=http%3A%2F%2Fsandbox.arktan.com%2Farkjs%2Fwaiting.html&bp_channel=",
+  "visualization":{
+  "vizname":"default"
+  },
+  "apps": [
+  {
+  "type":"stream",
+  "streamTarget":"arktan-stream",
+  "id": "all",
+  "streamID": "http://www.janrain.com/solutions/id_Veritas_News_Serena_Williams"
+  }
 ]};
-jQuery(document).ready(function(){
-Arktan.SocialApps.install(ArktanSocialStreamsConfig);
+$(document).ready(function(){
+  Arktan.SocialApps.install(ArktanSocialStreamsConfig);
 });
 </script>
+</body>
+</html>
