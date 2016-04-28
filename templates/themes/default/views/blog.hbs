@@ -3,7 +3,7 @@
 </div>
 <div class="container">
 	<div class="row">
-		<div class="col-sm-8 col-md-8 col-md-offset-2 col-sm-offset-2">
+		<div class="col-sm-8 col-md-8">
 			{{# each data.posts.results}}
 			<h2><a href="/article/{{slug}}">{{{title}}}</a></h2>
 				<div class="thumbnail">
@@ -16,6 +16,9 @@
 					</div>
 				</div>
 				{{/each}}
+		</div>
+		<div class="col-sm-4 col-md-4">
+			{{>pageAds}}
 		</div>
 	</div>
 	{{>pagination}}
