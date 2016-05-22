@@ -65,7 +65,7 @@ For more information about these settings, see the following documents:
 
     // These are the URLs for your Engage app's load.js file, which is necessary
     // to load the Capture Widget.
-    var httpLoadUrl  = "http://widgets-cdn.rpxnow.com/load/veritasnewscorp-demo";
+    var httpLoadUrl  = "/janrain/scripts/loadFile.js";
     var httpsLoadUrl = "https://rpxnow.com/load/veritasnewscorp-demo";
 
 

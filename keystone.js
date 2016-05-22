@@ -14,7 +14,7 @@ keystone.init({
 
 	'name': 'SE Demo',
 	'brand': 'SE Demo',
-
+	'env': 'production',
 	'sass': 'public',
 	'static': 'public',
 	'favicon': 'public/favicon.ico',
@@ -28,7 +28,7 @@ keystone.init({
 		helpers: new require('./templates/themes/' + theme + '/views/helpers')(),
 		extname: '.hbs'
 	}).engine,
-
+	'mongo': process.env.MONGO_URI || "mongodb://localhost/veritas-news",
 	'auto update': true,
 	'session': true,
 	'auth': true,

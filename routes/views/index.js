@@ -19,7 +19,6 @@ exports = module.exports = function(req, res) {
 
   // Load all categories
   view.on('init', function(next) {
-
     keystone.list('PostCategory').model.find().sort('name').exec(function(err, results) {
 
       if (err || !results.length) {
@@ -27,7 +26,6 @@ exports = module.exports = function(req, res) {
       }
 
       locals.data.categories = results;
-      console.log(results);
       // Load the counts for each category
       async.each(locals.data.categories, function(category, next) {
 
@@ -46,7 +44,6 @@ exports = module.exports = function(req, res) {
 
   // Load the current category filter
   view.on('init', function(next) {
-
     if (req.params.category) {
       keystone.list('PostCategory').model.findOne({ key: locals.filters.category }).exec(function(err, result) {
         locals.data.category = result;
