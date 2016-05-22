@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "keystone": "^0.3.16",
+    "keystone": "0.3.17",
     "async": "^1.5.0",
     "underscore": "^1.8.3",
     "moment": "^2.10.6",
@@ -13,23 +13,14 @@
     "node-sass": "^3.3.2",
     "node-sass-middleware": "^0.9.7",
     "dotenv": "^1.1.0",
-    "grunt": "^0.4.4",
-    "grunt-express-server": "^0.4.17",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-contrib-jshint": "^0.7.1",
     "jshint-stylish": "^2.0.1",
     "load-grunt-tasks": "^0.4.0",
     "load-grunt-configs": "^0.4.1",
-    "grunt-node-inspector": "^0.4.1",
-    "time-grunt": "^0.3.1",
-    "grunt-concurrent": "^0.5.0",
-    "grunt-nodemon": "^0.2.1",
-    "grunt-sass": "^1.0.0",
     "open": "0.0.5"
   },
   "engines": {
-    "node": ">=4.4.3",
-    "npm": ">=2.15.1"
+    "node": ">=0.12.6",
+    "npm": ">=2.15.0"
   },
   "scripts": {
     "start": "node keystone.js"
