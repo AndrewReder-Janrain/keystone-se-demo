@@ -28,7 +28,7 @@ keystone.init({
 		helpers: new require('./templates/themes/' + theme + '/views/helpers')(),
 		extname: '.hbs'
 	}).engine,
-	'mongo': process.env.MONGO_URI || "mongodb://localhost/veritas-news",
+	'mongo': process.env.MONGO_URI || "mongodb://localhost:27017/veritas-news",
 	'auto update': true,
 	'session': true,
 	'auth': true,
