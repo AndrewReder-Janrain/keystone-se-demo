@@ -212,7 +212,8 @@ function janrainCaptureWidgetOnLoad() {
         Uncomment this line to show events in your browser's console. You must
         include janrain-utils.js to run this function.
                                                                             --*/
-    // janrainUtilityFunctions().showEvents();
+
+    janrainUtilityFunctions().showEvents();
     janrain.events.onCaptureBackplaneReady.addHandler(function(result) {
         Arktan.SocialApps.install();
         if(jQuery(".article-comments").length > 0){
@@ -223,17 +224,12 @@ function janrainCaptureWidgetOnLoad() {
         }
     });
 
-    janrain.events.onCaptureSessionFound.addHandler(function(response) {
-        var uuid = eval("(" + localStorage["janrainCaptureProfileData"] + ")").uuid;
-        var entityType = "user";
-        var appkey = "dev.veritas";
-        Arktan.initializeEngagementUser(uuid, entityType, appkey);
-    });
     //Initialize Engagement User
     janrain.events.onCaptureLoginSuccess.addHandler(function(response) {
         var uuid = eval("(" + localStorage["janrainCaptureProfileData"] + ")").uuid;
         var entityType = "user";
         var appkey = "dev.veritas";
+        Arktan.SocialApps.install();
         Arktan.initializeEngagementUser(uuid, entityType, appkey);
     });
 
@@ -242,6 +238,7 @@ function janrainCaptureWidgetOnLoad() {
         var uuid = eval("(" + localStorage["janrainCaptureProfileData"] + ")").uuid;
         var entityType = "user";
         var appkey = "dev.veritas";
+        Arktan.SocialApps.install();
         Arktan.initializeEngagementUser(uuid, entityType, appkey);
         //$.cookie('ArktanCaptureLoginProvider', response.authProvider);
     });
